@@ -31,10 +31,10 @@ class {{ service | replace("Service", "") }}Client:
                 logger.info("gRPC client of %s.%s cache cleared: %s", service_name, rpc_name, cache_key)
             # check cache
             if cache_timeout:
-                 cached = GRPC_CACHE.get(cache_key)
-                 if cached is not None:
-                     logger.info("gRPC client of %s.%s received(hit cache): %s", service_name, rpc_name, cached)
-                     return cached
+                cached = GRPC_CACHE.get(cache_key)
+                if cached is not None:
+                    logger.info("gRPC client of %s.%s received(hit cache): %s", service_name, rpc_name, cached)
+                    return cached
 
         with insecure_channel(self.URL, options=GRPC_CHANNEL_OPTIONS) as channel:
             stub = {{ filename }}_pb2_grpc.{{ service }}Stub(channel)
